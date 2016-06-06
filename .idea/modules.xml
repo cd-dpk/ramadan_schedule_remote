@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ramadan_schedule.iml" filepath="$PROJECT_DIR$/ramadan_schedule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ramadan_schedule_remote.iml" filepath="$PROJECT_DIR$/ramadan_schedule_remote.iml" />
     </modules>
   </component>
 </project>

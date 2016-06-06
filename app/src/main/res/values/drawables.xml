@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="ic_app" type="drawable">@drawable/mosque_moon_and_star</drawable>
+</resources>
