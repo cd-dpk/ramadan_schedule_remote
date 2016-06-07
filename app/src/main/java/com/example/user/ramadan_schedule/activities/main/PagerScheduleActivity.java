@@ -42,4 +42,9 @@ public class PagerScheduleActivity extends TemplateActivity implements OnPagerVi
         ((ViewPager)container).addView(view);
         return view;
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

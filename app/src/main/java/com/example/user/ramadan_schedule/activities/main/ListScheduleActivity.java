@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.View;
 
 import com.example.user.ramadan_schedule.R;
@@ -28,11 +29,17 @@ public class ListScheduleActivity extends TemplateActivity implements OnRecycler
     public void loadData() {
         ramadanDayList = RamadanDay.toRamadanDays(localDataBaseHelper.selectRows(new RamadanDay()));
     }
-
     @Override
     public void initializeViewByData() {
         listScheduleRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         listScheduleRecyclerView.setAdapter(new RecyclerViewListAdapter(this,R.layout.card_recycler_item,ramadanDayList.size()));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        return true;
     }
 
     @Override

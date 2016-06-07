@@ -9,4 +9,8 @@
         android:id="@+id/menu_pager"
         android:title="Page View"
         />
+    <item android:id="@+id/menu_switch_district"
+        android:title="Switch District"
+        />
+
 </menu>
