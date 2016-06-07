@@ -13,6 +13,9 @@ import com.example.user.ramadan_schedule.adapters.CustomPagerAdapter;
 import com.example.user.ramadan_schedule.datamodels.RamadanDay;
 import com.example.user.ramadan_schedule.datamodels.interfaces.OnPagerViewItemListener;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class PagerScheduleActivity extends TemplateActivity implements OnPagerViewItemListener {
 
     ViewPager pagerScheduleViewPager;

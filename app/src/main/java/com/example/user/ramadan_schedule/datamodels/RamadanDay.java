@@ -4,11 +4,10 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.example.user.ramadan_schedule.datamodels.interfaces.ITable;
-import com.example.user.ramadan_schedule.utils.CustomTime;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,24 +16,29 @@ import java.util.List;
 public class RamadanDay implements ITable {
 
     public int ramadanDay;
-    public String gregorianMonth;
-    public int gregorianDate;
-    public String gregorianDay;
-    public String  sehrTime;
-    public String  iftrTime;
+    public int month;
+    public int date;
+    public int day;
+    public int sehrHour;
+    public int sehrMinute;
+    public int iftrHour;
+    public int iftrMinute;
+
 
     WhereClause whereClause = new WhereClause();
 
     public RamadanDay() {
     }
 
-    public RamadanDay(int ramadanDay, String gregorianMonth, int gregorianDate, String gregorianDay, String sehrTime, String iftrTime) {
+    public RamadanDay(int ramadanDay, int month, int date, int day, int sehrHour, int sehrMinute, int iftrHour, int iftrMinute) {
         this.ramadanDay = ramadanDay;
-        this.gregorianMonth = gregorianMonth;
-        this.gregorianDate = gregorianDate;
-        this.gregorianDay = gregorianDay;
-        this.sehrTime = sehrTime;
-        this.iftrTime = iftrTime;
+        this.month = month;
+        this.date = date;
+        this.day = day;
+        this.sehrHour = sehrHour;
+        this.sehrMinute = sehrMinute;
+        this.iftrHour = iftrHour;
+        this.iftrMinute = iftrMinute;
     }
 
     @Override
@@ -82,22 +86,22 @@ public class RamadanDay implements ITable {
     public ITable toITableFromCursor(Cursor cursor) {
         RamadanDay ramadanDay = new RamadanDay();
         if (cursor.getColumnIndex(Variable.GREGORIAN_DATE)!=-1){
-            ramadanDay.gregorianDate = cursor.getInt(cursor.getColumnIndex(Variable.GREGORIAN_DATE));
+            ramadanDay.date = cursor.getInt(cursor.getColumnIndex(Variable.GREGORIAN_DATE));
         }
         if (cursor.getColumnIndex(Variable.GREGORIAN_DAY)!=-1){
-            ramadanDay.gregorianDay = cursor.getString(cursor.getColumnIndex(Variable.GREGORIAN_DAY));
+            ramadanDay.day = cursor.getInt(cursor.getColumnIndex(Variable.GREGORIAN_DAY));
         }
         if (cursor.getColumnIndex(Variable.GREGORIAN_MONTH)!=-1){
-            ramadanDay.gregorianMonth = cursor.getString(cursor.getColumnIndex(Variable.GREGORIAN_MONTH));
+            ramadanDay.month = cursor.getInt(cursor.getColumnIndex(Variable.GREGORIAN_MONTH));
         }
         if (cursor.getColumnIndex(Variable.IFTR_TIME)!=-1){
-            ramadanDay.iftrTime = cursor.getString(cursor.getColumnIndex(Variable.GREGORIAN_DATE));
+            ramadanDay.iftrMinute = cursor.getInt(cursor.getColumnIndex(Variable.GREGORIAN_DATE));
         }
         if (cursor.getColumnIndex(Variable.RAMADAN_DAY)!=-1){
             ramadanDay.ramadanDay = cursor.getInt(cursor.getColumnIndex(Variable.RAMADAN_DAY));
         }
         if (cursor.getColumnIndex(Variable.SEHR_TIME)!=-1){
-            ramadanDay.sehrTime = cursor.getString(cursor.getColumnIndex(Variable.SEHR_TIME));
+            ramadanDay.sehrHour = cursor.getInt(cursor.getColumnIndex(Variable.SEHR_TIME));
         }
         return ramadanDay;
     }
@@ -115,11 +119,11 @@ public class RamadanDay implements ITable {
     @Override
     public ContentValues getInsertContentValues() {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Variable.GREGORIAN_DATE,gregorianDate);
-        contentValues.put(Variable.GREGORIAN_DAY,gregorianDay);
-        contentValues.put(Variable.GREGORIAN_MONTH,gregorianMonth);
-        contentValues.put(Variable.IFTR_TIME, iftrTime);
-        contentValues.put(Variable.SEHR_TIME,sehrTime);
+        contentValues.put(Variable.GREGORIAN_DATE, date);
+        contentValues.put(Variable.GREGORIAN_DAY, day);
+        contentValues.put(Variable.GREGORIAN_MONTH, month);
+        contentValues.put(Variable.IFTR_TIME, iftrMinute);
+        contentValues.put(Variable.SEHR_TIME, sehrHour);
         contentValues.put(Variable.RAMADAN_DAY,ramadanDay);
         return contentValues;
     }
@@ -155,5 +159,27 @@ public class RamadanDay implements ITable {
             ramadanDays.add((RamadanDay) iTable);
         }
         return ramadanDays;
+    }
+
+    public Date getSehrDate(){
+        Calendar localCalendar = Calendar.getInstance();
+        localCalendar.set(Calendar.YEAR,2016);//YEAR
+        localCalendar.set(Calendar.MONTH,month);//MONTH
+        localCalendar.set(Calendar.DATE, date);//DATE
+        localCalendar.set(Calendar.DAY_OF_WEEK,day);//DAY
+        localCalendar.set(Calendar.HOUR,sehrHour);//HOUR
+        localCalendar.set(Calendar.MINUTE,sehrMinute);//MINUTE
+        return localCalendar.getTime();
+    }
+
+    public Date getIftrDate(){
+        Calendar localCalendar = Calendar.getInstance();
+        localCalendar.set(Calendar.YEAR,2016);//YEAR
+        localCalendar.set(Calendar.MONTH,month);//MONTH
+        localCalendar.set(Calendar.DATE, date);//DATE
+        localCalendar.set(Calendar.DAY_OF_WEEK,day);//DAY
+        localCalendar.set(Calendar.HOUR,iftrHour);//HOUR
+        localCalendar.set(Calendar.MINUTE,iftrMinute);//MINUTE
+        return localCalendar.getTime();
     }
 }
