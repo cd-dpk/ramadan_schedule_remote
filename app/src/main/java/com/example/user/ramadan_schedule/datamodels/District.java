@@ -48,7 +48,7 @@ public class District implements ITable {
 
     @Override
     public String toSelectString() {
-        return "select * from "+tableName()+" where "+getWhereClauseString();
+        return "select * from "+tableName()+" where "+getWhereClauseString()+" order by "+Variable.DISTRICT_NAME+" asc";
     }
 
     @Override

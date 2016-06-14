@@ -107,7 +107,9 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         Cursor cursor = sqLiteDatabase.rawQuery(iTableType.toSelectString(), null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                iTableList.add(iTableType.toITableFromCursor(cursor));
+                ITable iTable = iTableType.toITableFromCursor(cursor);
+                Log.d(DataBaseHelper.LOG,iTable.toString());
+                iTableList.add(iTable);
             } while (cursor.moveToNext());
         }
         sqLiteDatabase.close();

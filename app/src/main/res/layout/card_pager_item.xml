@@ -7,7 +7,7 @@
     android:layout_gravity="center">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center">
         <LinearLayout
@@ -41,12 +41,14 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:layout_marginBottom="20dp"
+                    android:id="@+id/text_card_pager_sehr_time"
                     android:text="SEHR TIME#"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:layout_marginBottom="20dp"
+                    android:id="@+id/text_card_pager_iftr_time"
                     android:text="IFTR TIME#"/>
             </LinearLayout>
         </LinearLayout>
@@ -55,16 +57,19 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Day #"
+            android:id="@+id/text_card_pager_ramadan_day"
             android:gravity="center"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Calender Day"
+            android:id="@+id/text_card_pager_calendar_date"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:gravity="center"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/text_card_pager_district"
             android:text="District"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:gravity="center"/>

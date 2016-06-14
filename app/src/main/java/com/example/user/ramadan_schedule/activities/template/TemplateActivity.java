@@ -23,7 +23,10 @@ import com.example.user.ramadan_schedule.datamodels.interfaces.ITable;
 import com.example.user.ramadan_schedule.utils.CustomToast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public abstract class TemplateActivity extends AppCompatActivity {
 
@@ -45,6 +48,23 @@ public abstract class TemplateActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.home_menu, menu);
         return true;
     }
+    
+    protected int getCurrentItem(){
+        Calendar localCalendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+        localCalendar.add(Calendar.HOUR, 6);
+        int currentPosition = 0;
+        for (RamadanDay ramadanDay:ramadanDayList){
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(ramadanDay.getSehrDate());
+            if (calendar.get(Calendar.DATE) == localCalendar.get(Calendar.DATE) &&
+                    calendar.get(Calendar.MONTH) == localCalendar.get(Calendar.MONTH) &&
+                    calendar.get(Calendar.YEAR) == localCalendar.get(Calendar.YEAR)){
+                currentPosition = ramadanDay.ramadanDay-1;
+            }
+        }
+        return currentPosition;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

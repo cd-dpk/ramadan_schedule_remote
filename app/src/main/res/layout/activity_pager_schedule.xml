@@ -10,7 +10,7 @@
     tools:context="com.example.user.ramadan_schedule.activities.main.PagerScheduleActivity">
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/view_pager_activity_pager_schedule">
     </android.support.v4.view.ViewPager>
 </RelativeLayout>

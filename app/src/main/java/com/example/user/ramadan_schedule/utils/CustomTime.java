@@ -2,7 +2,9 @@ package com.example.user.ramadan_schedule.utils;
 
 import android.util.Log;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.StringTokenizer;
 
 /**
@@ -37,6 +39,7 @@ public class CustomTime {
         return time[5];
     }
 
+
     public CustomTime(String timeString) {
         this.timeString = timeString;
         StringTokenizer stringTokenizer = new StringTokenizer(timeString,"- :",false);
@@ -46,6 +49,7 @@ public class CustomTime {
             i++;
         }
     }
+
     public CustomTime(Calendar localCalendar){
         this(localCalendar.get(Calendar.YEAR)+ "-" + (localCalendar.get(Calendar.MONTH)+1) + "-" + localCalendar.get(Calendar.DATE) + " " + localCalendar.get(Calendar.HOUR_OF_DAY) + ":" + localCalendar.get(Calendar.MINUTE) + ":" + localCalendar.get(Calendar.SECOND));
     }
@@ -82,6 +86,65 @@ public class CustomTime {
         return timeString;
     }
 
+    public void testTimeStamp(){
+        Calendar localCalendar = Calendar.getInstance();
+        Timestamp timestamp = new Timestamp(localCalendar.getTimeInMillis());
+        Log.d("Time",timestamp.toString());
+    }
 
+    public static String convertToAMPM(Calendar localCalendar){
+        switch (localCalendar.get(Calendar.AM_PM)){
+            case Calendar.AM:
+                return "am";
+            default:
+                return "pm";
+        }
+    }
+    public static String convertToDayString(Calendar localCalendar){
+        switch (localCalendar.get(Calendar.DAY_OF_WEEK)){
+            case Calendar.MONDAY:
+                return "Mon";
+            case Calendar.TUESDAY:
+                return "Tue";
+            case Calendar.WEDNESDAY:
+                return "Wed";
+            case Calendar.THURSDAY:
+                return "Thu";
+            case Calendar.FRIDAY:
+                return "Fri";
+            case Calendar.SATURDAY:
+                return "Sat";
+            default:
+                return "Sun";
+        }
+    }
+    public static String convertToMonthString(Calendar localCalendar){
+        switch (localCalendar.get(Calendar.MONTH)){
+            case Calendar.JANUARY:
+                return "Jan";
+            case Calendar.FEBRUARY:
+                return "Feb";
+            case Calendar.MARCH:
+                return "Mar";
+            case Calendar.APRIL:
+                return "Apr";
+            case Calendar.MAY:
+                return "May";
+            case Calendar.JUNE:
+                return "Jun";
+            case Calendar.JULY:
+                return "Jul";
+            case Calendar.AUGUST:
+                return "Aug";
+            case Calendar.SEPTEMBER:
+                return "Sep";
+            case Calendar.OCTOBER:
+                return "Oct";
+            case Calendar.NOVEMBER:
+                return "Nov";
+            default:
+                return "Dec";
+        }
+    }
 
 }
