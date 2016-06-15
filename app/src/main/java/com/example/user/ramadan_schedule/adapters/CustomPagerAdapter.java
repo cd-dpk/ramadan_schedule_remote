@@ -9,6 +9,7 @@ import com.example.user.ramadan_schedule.datamodels.interfaces.OnPagerViewItemLi
 
 
 /**
+ *
  * Created by chandradasdipok on 5/29/2016.
  */
 public class CustomPagerAdapter extends PagerAdapter {

@@ -4,10 +4,12 @@
     <item
         android:id="@+id/menu_list"
         android:title="List View"
+        android:visible="false"
         />
     <item
         android:id="@+id/menu_pager"
         android:title="Page View"
+        android:visible="false"
         />
     <item android:id="@+id/menu_switch_district"
         android:title="Switch District"

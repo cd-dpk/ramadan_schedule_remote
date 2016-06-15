@@ -59,7 +59,7 @@ public class DistrictSelectActivity extends TemplateActivity  {
                 for (ITable iTable: iTableList){
                     District district = (District) iTable;
                     districtList.add(district);
-                    districtStringList.add(district.toString());
+                    districtStringList.add(district.districtName);
                 }
                 stringArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,districtStringList);
         }

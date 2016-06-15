@@ -1,8 +1,10 @@
 package com.example.user.ramadan_schedule.activities.template;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +18,7 @@ import com.example.user.ramadan_schedule.R;
 import com.example.user.ramadan_schedule.activities.main.ListScheduleActivity;
 import com.example.user.ramadan_schedule.activities.main.PagerScheduleActivity;
 import com.example.user.ramadan_schedule.data.constants.ApplicationConstants;
+import com.example.user.ramadan_schedule.data.constants.RegistrationConstants;
 import com.example.user.ramadan_schedule.data.db.DataBaseHelper;
 import com.example.user.ramadan_schedule.datamodels.District;
 import com.example.user.ramadan_schedule.datamodels.RamadanDay;
@@ -31,8 +34,6 @@ import java.util.TimeZone;
 public abstract class TemplateActivity extends AppCompatActivity {
 
     protected Toolbar templateToolbar;
-    protected int numberOfBackButtonTyped = 0;
-    protected long lastBackButtonTypedInMilliseconds = 0;
     protected CustomToast customToast = new CustomToast(this);
     protected DataBaseHelper localDataBaseHelper = new DataBaseHelper(this);
 
@@ -110,26 +111,21 @@ public abstract class TemplateActivity extends AppCompatActivity {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Switch District");
             List<ITable>iTables = localDataBaseHelper.selectRows(new District());
-            String[] iTablesString = new String[iTables.size()];
+            List<District> districtList = District.toDistricts(iTables);
+            final String[] iTablesString = new String[iTables.size()];
             for (int i = 0; i < iTables.size(); i++) {
-                iTablesString[i] = iTables.get(i).toString();
+                iTablesString[i] = districtList.get(i).districtName;
             }
             alertDialogBuilder.setItems(iTablesString, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
-            alertDialogBuilder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
-            alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
+                    SharedPreferences sharedPreferences = getSharedPreferences(RegistrationConstants.APPLICATION_PREFERENCE, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    ApplicationConstants.USER_DISTRICT = iTablesString[which].toString();
+                    editor.putString(RegistrationConstants.USER_DISTRICT, ApplicationConstants.USER_DISTRICT);
+                    editor.commit();
+                    Intent intent = new Intent(TemplateActivity.this,PagerScheduleActivity.class);
+                    startActivity(intent);
                 }
             });
             AlertDialog alertDialog = alertDialogBuilder.create();
@@ -139,28 +135,9 @@ public abstract class TemplateActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        if (numberOfBackButtonTyped == ApplicationConstants.BACK_BUTTON_INITIALIZE_STATE){
-            numberOfBackButtonTyped = ApplicationConstants.BACK_BUTTON_TYPED_ONCE;
-            lastBackButtonTypedInMilliseconds = System.currentTimeMillis();
-        }
-        else if(numberOfBackButtonTyped == ApplicationConstants.BACK_BUTTON_TYPED_ONCE){
-            if ((System.currentTimeMillis()-lastBackButtonTypedInMilliseconds)<(5*1000)){
-                numberOfBackButtonTyped = ApplicationConstants.BACK_BUTTON_TYPED_TWICE;
-            }
-            else {
-                numberOfBackButtonTyped = ApplicationConstants.BACK_BUTTON_INITIALIZE_STATE;
-            }
-        }
-        if (numberOfBackButtonTyped == ApplicationConstants.BACK_BUTTON_TYPED_ONCE){
-            customToast.showShortToast("Press back once more to exit");
-        }
-        else if (numberOfBackButtonTyped == ApplicationConstants.BACK_BUTTON_TYPED_TWICE){
-            numberOfBackButtonTyped = ApplicationConstants.BACK_BUTTON_INITIALIZE_STATE;
-            lastBackButtonTypedInMilliseconds = 0;
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        }
     }
 }

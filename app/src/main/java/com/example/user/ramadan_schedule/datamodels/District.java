@@ -7,6 +7,9 @@ import com.example.user.ramadan_schedule.datamodels.interfaces.ITable;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by chandradasdipok on 6/5/2016.
  */
@@ -16,7 +19,7 @@ public class District implements ITable {
     public int sehrTimeCorrection;
     public int iftrTimeCorrection;
 
-    WhereClause whereClause = new WhereClause();
+    public WhereClause whereClause = new WhereClause();
 
     public District() {
     }
@@ -122,6 +125,14 @@ public class District implements ITable {
 
     @Override
     public String toString() {
-        return districtName;
+        return districtName+","+sehrTimeCorrection+","+iftrTimeCorrection;
+    }
+
+    public static List<District> toDistricts(List<ITable>iTableList){
+        List<District> districtList = new ArrayList<District>();
+        for (ITable iTable:iTableList) {
+            districtList.add((District) iTable);
+        }
+        return  districtList;
     }
 }
